@@ -1,6 +1,7 @@
 package molina.raul.apppeliculas
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,11 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 
-class AdaptadorPeliculas: BaseAdapter {
+class AdaptadorPeliculas : BaseAdapter {
     lateinit var context: Context
     var peliculas: ArrayList<Pelicula> = ArrayList()
 
-    constructor(context: Context, peliculas: ArrayList<Pelicula>){
+    constructor(context: Context, peliculas: ArrayList<Pelicula>) {
         this.context = context
         this.peliculas = peliculas
     }
@@ -42,6 +43,14 @@ class AdaptadorPeliculas: BaseAdapter {
         tv_nombre.setText(pelicula.nombre)
         tv_desc.setText(pelicula.descripcion)
         img.setImageResource(pelicula.img)
+
+        vista.setOnClickListener {
+            val intent: Intent = Intent(context, DetallePelicula::class.java)
+            intent.putExtra("nombre", pelicula.nombre)
+            intent.putExtra("desc", pelicula.descripcion)
+            intent.putExtra("img", pelicula.img)
+            context.startActivity(intent)
+        }
 
         return vista
 
